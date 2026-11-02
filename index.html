@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>notokenclub ✦ a tech and AI community from Chennai</title>
 <meta name="description" content="notokenclub is a tech and AI community from Chennai, India. Students, builders, researchers and founders who meet up in person to talk about AI and build things together.">
-<link rel="icon" href="LOGO.png" type="image/png">
+<link rel="icon" href="logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&family=Inter:wght@300;800;900&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@ body{
 ::selection{background:var(--accent);color:var(--bg)}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--mono);cursor:pointer;background:none;border:none;color:inherit}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 
 .label{
   font-family:var(--mono);
@@ -1079,12 +1079,12 @@ body.pac-held #pacFakeCursor{display:block}
 <div id="navOverlay" aria-hidden="true">
   <nav class="nav-links" aria-label="Site">
     <div id="navPacDot"></div>
-    <a href="Index.html" data-num="01" class="nav-current">Home</a>
+    <a href="index.html" data-num="01" class="nav-current">Home</a>
     <a href="events.html" data-num="02">Events</a>
     <a href="gallery.html" data-num="03">Gallery</a>
     <a href="research.html" data-num="04">Research</a>
     <a href="members.html" data-num="05">Members</a>
-    <a href="Index.html#join" data-num="06">Join ✦</a>
+    <a href="index.html#join" data-num="06">Join ✦</a>
   </nav>
   <p class="nav-foot">notokenclub <span class="star">✦</span> chennai · coimbatore · <a href="mailto:notokenclub26@gmail.com">notokenclub26@gmail.com</a></p>
   <button id="navClose" aria-label="Close menu">✕</button>
@@ -1106,7 +1106,7 @@ body.pac-held #pacFakeCursor{display:block}
 <!-- ============ HERO / ABOUT ============ -->
 <section class="section" id="hero">
   <a class="nav-logo" href="#hero" aria-label="notokenclub home">
-    <img src="LOGO.png" alt="notokenclub" style="width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);object-fit:contain;display:block;border:2px solid #f0ede6;">
+    <img src="logo.png" alt="notokenclub" style="width:clamp(64px,8vw,96px);height:clamp(64px,8vw,96px);object-fit:contain;display:block;border:2px solid #f0ede6;">
   </a>
   <div style="display:flex;align-items:center;gap:14px;margin-bottom:0">
     <p class="label" id="heroLabel" style="margin:0">About <span class="star">✦</span> notokenclub</p>
@@ -1298,8 +1298,8 @@ body.pac-held #pacFakeCursor{display:block}
     <div class="fight-arena" id="fightArena">
       <div class="hp-bar hp-l"><div class="hp-fill"></div></div>
       <div class="hp-bar hp-r"><div class="hp-fill"></div></div>
-      <img id="knightA" class="knight knight-r" src="FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Idle.gif" alt="">
-      <img id="knightB" class="knight knight-l" src="FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Idle.gif" alt="">
+      <img id="knightA" class="knight knight-r" src="freeknight_v1/colour1/nooutline/120x80_gifs/__idle.gif" alt="">
+      <img id="knightB" class="knight knight-l" src="freeknight_v1/colour2/nooutline/120x80_gifs/__idle.gif" alt="">
     </div>
     <button class="add-fighters-btn" id="addFightersBtn">+ Add Fighters</button>
     <button class="add-fighters-btn kill-btn" id="killFighterBtn">✕ Kill</button>
@@ -3050,8 +3050,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* ============ KNIGHT FIGHT ANIMATION ============ */
 (function () {
-  var BASE1 = 'FreeKnight_v1/Colour1/NoOutline/120x80_gifs/';
-  var BASE2 = 'FreeKnight_v1/Colour2/NoOutline/120x80_gifs/';
+  var BASE1 = 'freeknight_v1/colour1/nooutline/120x80_gifs/';
+  var BASE2 = 'freeknight_v1/colour2/nooutline/120x80_gifs/';
 
   var kA = document.getElementById('knightA');
   var kB = document.getElementById('knightB');
@@ -3059,19 +3059,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
   /* ---- move pools ---- */
   var ATK = [
-    {g:'__Attack.gif',ms:700},{g:'__Attack2.gif',ms:800},
-    {g:'__AttackCombo2hit.gif',ms:900},{g:'__AttackNoMovement.gif',ms:700},
-    {g:'__CrouchAttack.gif',ms:700},{g:'__AttackComboNoMovement.gif',ms:850},
+    {g:'__attack.gif',ms:700},{g:'__attack2.gif',ms:800},
+    {g:'__attackcombo2hit.gif',ms:900},{g:'__attacknomovement.gif',ms:700},
+    {g:'__crouchattack.gif',ms:700},{g:'__attackcombonomovement.gif',ms:850},
   ];
   var HIT = [
-    {g:'__Hit.gif',ms:560},{g:'__Crouch.gif',ms:520},
-    {g:'__Fall.gif',ms:500},{g:'__CrouchAll.gif',ms:600},
+    {g:'__hit.gif',ms:560},{g:'__crouch.gif',ms:520},
+    {g:'__fall.gif',ms:500},{g:'__crouchall.gif',ms:600},
   ];
   var MOVE = [
-    {g:'__Run.gif',ms:620},{g:'__Dash.gif',ms:480},{g:'__Roll.gif',ms:560},
+    {g:'__run.gif',ms:620},{g:'__dash.gif',ms:480},{g:'__roll.gif',ms:560},
   ];
   var DEATH = [
-    {g:'__Death.gif',ms:1300},{g:'__DeathNoMovement.gif',ms:1300},
+    {g:'__death.gif',ms:1300},{g:'__deathnomovement.gif',ms:1300},
   ];
 
   function rnd(a) { return a[Math.floor(Math.random()*a.length)]; }
@@ -3154,8 +3154,8 @@ document.addEventListener("DOMContentLoaded", function() {
   /* ---- choreography engine ---- */
   async function bout() {
     /* reset home */
-    kA.src = BASE1+'__Idle.gif';
-    kB.src = BASE2+'__Idle.gif';
+    kA.src = BASE1+'__idle.gif';
+    kB.src = BASE2+'__idle.gif';
     pose(0, 0, 400);
     resetHp();
     await wait(900 + Math.random()*700);
@@ -3241,7 +3241,7 @@ document.addEventListener("DOMContentLoaded", function() {
         await wait(600);
 
         /* back to normal idle, reset pose */
-        dEl.src = dB + '__Idle.gif';
+        dEl.src = dB + '__idle.gif';
         pose(NEAR, NEAR, 300);
         await wait(500);
       }
@@ -3302,7 +3302,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   async function soloFight(fighter) {
     while (fighter.el.parentNode) {
-      fighter.el.src = fighter.base + '__Idle.gif';
+      fighter.el.src = fighter.base + '__idle.gif';
       await wait(300 + Math.random() * 600);
 
       var atk = rnd(ATK);
