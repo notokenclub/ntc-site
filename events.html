@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events ✦ notokenclub: what we've done so far</title>
+<meta name="description" content="Notes and photos from notokenclub meetups in Chennai and Coimbatore, plus the Chennai researchathon.">
+<link rel="icon" href="LOGO.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@300;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--fg:#f0ede6;--accent:#e8ff47;--muted:#3a3a3a;--muted-text:#8a8a82;
+  --surface:#111111;--blue:#2e4fff;
+  --display:'Inter','Helvetica Neue',Arial,sans-serif;
+  --mono:'Geist Mono','Courier New',monospace;
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+}
+html{background:var(--bg)}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:var(--mono);font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--mono);cursor:pointer;background:none;border:none;color:inherit}
+img{max-width:100%;display:block}
+body,*{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewBox='0 0 22 26'%3E%3Cpath d='M2 1 L2 20 L6 15 L10 24 L13 23 L9 14 L16 14 Z' fill='%23e8ff47'/%3E%3C/svg%3E") 2 1,auto!important}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--muted)}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+html{scrollbar-width:thin;scrollbar-color:var(--muted) var(--bg)}
+
+.label{font-family:var(--mono);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;color:var(--muted-text)}
+.star{color:var(--accent)}
+.section{max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,140px) clamp(20px,4vw,48px)}
+.section-title{
+  font-family:var(--display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(40px,7vw,96px);letter-spacing:-0.04em;line-height:0.95;
+}
+.btn{
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:0.12em;font-size:12px;
+  padding:18px 36px;display:inline-block;
+  transition:background .3s ease,color .3s ease,border-color .3s ease;
+}
+.btn-outline{border:1px solid var(--blue);color:var(--blue)}
+.btn-outline:hover{background:var(--blue);color:#fff}
+.btn-fill{background:var(--accent);color:var(--bg);border:1px solid var(--accent)}
+.btn-fill:hover{background:transparent;color:var(--accent)}
+[data-reveal]{opacity:0;transform:translateY(36px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].in{opacity:1;transform:none}
+
+/* nav (shared) */
+#menuBtn{
+  position:fixed;top:20px;left:24px;z-index:1000;
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted-text);background:rgba(10,10,10,0.72);
+  border:1px solid var(--muted);border-radius:20px;padding:6px 16px;
+  backdrop-filter:blur(8px);transition:color .25s,border-color .25s;
+}
+#menuBtn:hover{color:var(--accent);border-color:var(--accent)}
+#menuBtn .m-ico{display:inline-flex;flex-direction:column;gap:3px}
+#menuBtn .m-ico i{display:block;width:14px;height:2px;background:currentColor}
+#navOverlay{
+  position:fixed;inset:0;z-index:990;background:rgba(10,10,10,0.97);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(24px,6vw,80px);
+  visibility:hidden;opacity:0;
+  transition:opacity .35s ease,visibility 0s linear .35s;
+}
+#navOverlay::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(232,255,71,0.02) 0 1px,transparent 1px 4px);
+}
+#navOverlay.open{visibility:visible;opacity:1;transition:opacity .35s ease,visibility 0s}
+.nav-links{display:flex;flex-direction:column;gap:4px;position:relative}
+.nav-links a{
+  position:relative;width:fit-content;padding-left:56px;
+  font-family:var(--display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(36px,7.5vw,84px);letter-spacing:-0.03em;line-height:1.08;
+  color:var(--muted-text);
+  transform:translateY(30px);opacity:0;
+  transition:color .2s ease,transform .5s var(--ease-out-expo),opacity .4s ease;
+}
+#navOverlay.open .nav-links a{transform:translateY(0);opacity:1}
+.nav-links a:hover,.nav-links a.nav-current{color:var(--fg)}
+.nav-links a::before{
+  content:attr(data-num);position:absolute;left:0;top:0.45em;
+  font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:0.14em;color:var(--muted-text);
+}
+.nav-links a.nav-current::after{content:'✦';position:absolute;right:-40px;top:0.28em;font-size:0.35em;color:var(--accent)}
+.nav-links a:hover::before{color:var(--accent)}
+#navPacDot{
+  position:absolute;width:22px;height:22px;background:var(--accent);border-radius:50%;
+  clip-path:polygon(50% 50%,100% 22%,100% 0%,0% 0%,0% 100%,100% 100%,100% 78%);
+  animation:chomp 0.32s ease-in-out infinite alternate;
+  left:14px;top:-40px;opacity:0;
+  transition:top .3s var(--ease-out-expo),opacity .2s ease;pointer-events:none;
+}
+@keyframes chomp{
+  0%  {clip-path:polygon(50% 50%,100% 22%,100% 0%,0% 0%,0% 100%,100% 100%,100% 78%)}
+  100%{clip-path:polygon(50% 50%,100% 50%,100% 0%,0% 0%,0% 100%,100% 100%,100% 50%)}
+}
+.nav-foot{margin-top:clamp(28px,5vh,56px);font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--muted-text)}
+.nav-foot a{color:var(--accent)}
+#navClose{
+  position:absolute;top:20px;right:24px;font-size:22px;color:var(--muted-text);line-height:1;padding:8px;
+  transition:color .2s,transform .3s;
+}
+#navClose:hover{color:var(--accent);transform:rotate(90deg)}
+
+/* hero */
+#hero{padding-top:clamp(140px,18vw,200px)}
+.hero-copy{
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(24px,4.2vw,48px);line-height:1.3;letter-spacing:-0.015em;
+  max-width:1000px;margin-top:28px;
+}
+.hero-copy em{font-style:normal;color:var(--accent)}
+.hero-copy strong{font-weight:800}
+
+/* story */
+.story{
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(16px,2vw,22px);line-height:1.8;max-width:760px;
+}
+.story .hl{color:var(--accent);font-weight:800}
+.story + .story{margin-top:28px}
+
+/* event memos */
+.memo{
+  border:1px solid var(--muted);background:var(--surface);
+  padding:clamp(24px,4vw,44px);
+  margin-top:28px;position:relative;overflow:hidden;
+  transition:border-color .3s;
+}
+.memo:hover{border-color:var(--accent)}
+.memo.upcoming{border-style:dashed}
+.memo-head{
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline;
+  margin-bottom:18px;
+}
+.memo-log{font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent)}
+.memo-date{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-text)}
+.memo-title{
+  font-family:var(--display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(24px,4vw,44px);letter-spacing:-0.03em;line-height:1;
+  margin-bottom:16px;
+}
+.memo-body{font-size:13.5px;line-height:1.8;color:var(--fg);opacity:0.82;max-width:760px;margin-bottom:14px}
+.memo-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.memo-tags span{
+  font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;
+  padding:5px 12px;border:1px solid var(--muted);color:var(--muted-text);
+}
+.memo-strip{
+  display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;
+  scrollbar-width:thin;
+}
+.memo-strip figure{
+  position:relative;flex:0 0 auto;margin:0;overflow:hidden;
+  border:1px solid var(--muted);
+}
+.memo-strip img{
+  height:190px;width:auto;max-width:none;display:block;
+  filter:grayscale(1);transform:scale(1.01);
+  transition:filter .5s,transform .7s var(--ease-out-expo);
+}
+.memo-strip figure:hover{border-color:var(--accent)}
+.memo-strip figure:hover img{filter:grayscale(0);transform:scale(1.06)}
+.memo-strip figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:8px 10px;
+  font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg);
+  background:linear-gradient(transparent,rgba(10,10,10,0.9));
+  transform:translateY(100%);transition:transform .3s var(--ease-out-expo);
+}
+.memo-strip figure:hover figcaption{transform:translateY(0)}
+.memo-stat{display:flex;gap:28px;flex-wrap:wrap;margin-top:20px}
+.memo-stat div{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted-text)}
+.memo-stat b{color:var(--accent);font-weight:500;font-size:15px;display:block;margin-bottom:2px}
+.memo.upcoming .memo-title{color:var(--muted-text)}
+.memo-strip a{display:block}
+.memo-links{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-family:var(--mono);font-size:12px}
+.memo-links a{color:var(--accent)}
+.memo-links a:hover{text-decoration:underline}
+
+/* what we do */
+.do-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:48px}
+.do-item{
+  border:1px solid var(--muted);background:var(--surface);
+  padding:30px 26px;display:flex;flex-direction:column;gap:12px;
+  transition:border-color .3s,transform .3s;
+}
+.do-item:hover{border-color:var(--accent);transform:translateY(-4px)}
+.do-item .d-num{font-family:var(--mono);font-size:11px;letter-spacing:0.16em;color:var(--accent)}
+.do-item h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:20px;letter-spacing:-0.01em}
+.do-item p{font-size:13px;line-height:1.7;color:var(--muted-text)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;margin-top:48px}
+@media(max-width:640px){.stats{grid-template-columns:1fr}}
+.stat-num{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(56px,9vw,110px);letter-spacing:-0.04em;color:var(--accent);line-height:1;
+}
+.stat-label{margin-top:12px}
+
+/* cta */
+#cta{text-align:center}
+.cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+footer{border-top:1px solid var(--muted);padding:32px clamp(20px,4vw,48px);text-align:center;font-size:11px;color:var(--muted-text);letter-spacing:0.08em}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<button id="menuBtn" aria-label="Open menu" aria-expanded="false"><span class="m-ico"><i></i><i></i></span> Menu</button>
+<div id="navOverlay" aria-hidden="true">
+  <nav class="nav-links" aria-label="Site">
+    <div id="navPacDot"></div>
+    <a href="Index.html" data-num="01">Home</a>
+    <a href="events.html" data-num="02" class="nav-current">Events</a>
+    <a href="gallery.html" data-num="03">Gallery</a>
+    <a href="research.html" data-num="04">Research</a>
+    <a href="members.html" data-num="05">Members</a>
+    <a href="Index.html#join" data-num="06">Join ✦</a>
+  </nav>
+  <p class="nav-foot">notokenclub <span class="star">✦</span> chennai · coimbatore · <a href="mailto:notokenclub26@gmail.com">notokenclub26@gmail.com</a></p>
+  <button id="navClose" aria-label="Close menu">✕</button>
+</div>
+
+<!-- ============ HERO / ABOUT ============ -->
+<section class="section" id="hero">
+  <p class="label">Events <span class="star">✦</span> &amp; about notokenclub</p>
+  <h1 class="section-title" style="margin-top:20px">What<br>Happened</h1>
+  <p class="hero-copy" data-reveal>
+    We're <em>notokenclub</em>, a bunch of builders, researchers and tinkerers from Chennai.
+    We meet up to talk about AI, not to hype it, but to actually understand it and build with it.
+    <strong>Here's everything we've done so far.</strong>
+  </p>
+</section>
+
+<!-- ============ EVENT MEMOS ============ -->
+<section class="section" id="memos" style="padding-top:0">
+  <p class="label" data-reveal style="margin-bottom:8px">Event log <span class="star">✦</span> what happened at each one</p>
+
+  <article class="memo" data-reveal>
+    <div class="memo-head">
+      <span class="memo-log">LOG 01 ✦ CHENNAI</span>
+      <span class="memo-date">Jun 2026</span>
+    </div>
+    <h2 class="memo-title">The First Gathering</h2>
+    <p class="memo-body">
+      Where it all started. We met at a park pavilion in Chennai and spent the afternoon asking each
+      other one question: what are you actually building? There were a few short talks, a lot of
+      arguing on the benches, and way more people in the group photo than we expected. Before
+      leaving, everyone stuck a note on our feedback board.
+    </p>
+    <div class="memo-tags"><span>Meetup</span><span>The first one</span><span>Chennai</span></div>
+    <div class="memo-strip">
+      <figure><a href="gallery.html#event-01"><img width="1800" height="1350" src="gallery/e1/t/01.jpg" loading="lazy" alt="Everyone who came to our first meetup"></a><figcaption>Everyone who came to our first meetup</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1800" height="1200" src="gallery/e1/t/02.jpg" loading="lazy" alt="Laughing between talks"></a><figcaption>Laughing between talks</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1800" height="1200" src="gallery/e1/t/03.jpg" loading="lazy" alt="A talk, no slides needed"></a><figcaption>A talk, no slides needed</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1350" height="1800" src="gallery/e1/t/05.jpg" loading="lazy" alt="Smiles all round"></a><figcaption>Smiles all round</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1200" height="1800" src="gallery/e1/t/06.jpg" loading="lazy" alt="Talking to the group"></a><figcaption>Talking to the group</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1200" height="1800" src="gallery/e1/t/07.jpg" loading="lazy" alt="Listening from the benches"></a><figcaption>Listening from the benches</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1800" height="1200" src="gallery/e1/t/09.jpg" loading="lazy" alt="Hanging out after the talks"></a><figcaption>Hanging out after the talks</figcaption></figure>
+      <figure><a href="gallery.html#event-01"><img width="1800" height="1200" src="gallery/e1/t/04.jpg" loading="lazy" alt="Posing with our poster"></a><figcaption>Posing with our poster</figcaption></figure>
+    </div>
+    <div class="memo-stat">
+      <div><b>30+</b>humans</div>
+      <div><b>43</b>photos</div>
+      <div><b>01</b>feedback board</div>
+      <div><b>00</b>tokens</div>
+    </div>
+    <p class="memo-links"><a href="gallery.html#event-01">see all 43 photos →</a></p>
+  </article>
+
+  <article class="memo" data-reveal>
+    <div class="memo-head">
+      <span class="memo-log">LOG 02 ✦ COIMBATORE</span>
+      <span class="memo-date">Jul 2026</span>
+    </div>
+    <h2 class="memo-title">Coimbatore Edition</h2>
+    <p class="memo-body">
+      Our first meetup outside Chennai. It was a smaller group, so we pulled the benches into a circle
+      and talked for hours about what everyone was working on. By the end our poster was covered in
+      sticky notes. One of them said it was "more interactive than normal tech events", which we'll take.
+    </p>
+    <div class="memo-tags"><span>Meetup</span><span>Coimbatore</span><span>First outside Chennai</span><span>Sticky notes</span></div>
+    <div class="memo-strip">
+      <figure><a href="gallery.html#event-02"><img width="1800" height="1350" src="gallery/e2/t/01.jpg" loading="lazy" alt="Everyone at the Coimbatore meetup"></a><figcaption>Everyone at the Coimbatore meetup</figcaption></figure>
+      <figure><a href="gallery.html#event-02"><img width="1800" height="1350" src="gallery/e2/t/02.jpg" loading="lazy" alt="Talking in a circle under the shelter"></a><figcaption>Talking in a circle under the shelter</figcaption></figure>
+      <figure><a href="gallery.html#event-02"><img width="1350" height="1800" src="gallery/e2/t/03.jpg" loading="lazy" alt="Sticky notes all over our poster"></a><figcaption>Sticky notes all over our poster</figcaption></figure>
+      <figure><a href="gallery.html#event-02"><img width="1350" height="1800" src="gallery/e2/t/04.jpg" loading="lazy" alt="Chatting after the talks"></a><figcaption>Chatting after the talks</figcaption></figure>
+      <figure><a href="gallery.html#event-02"><img width="1350" height="1800" src="gallery/e2/t/05.jpg" loading="lazy" alt="Our poster on the wall"></a><figcaption>Our poster on the wall</figcaption></figure>
+    </div>
+    <div class="memo-stat">
+      <div><b>10+</b>humans</div>
+      <div><b>07</b>sticky-note reviews</div>
+      <div><b>02</b>cities now</div>
+      <div><b>00</b>tokens</div>
+    </div>
+    <p class="memo-links"><a href="gallery.html#event-02">see all 12 photos + the review wall →</a></p>
+  </article>
+
+  <article class="memo" data-reveal>
+    <div class="memo-head">
+      <span class="memo-log">LOG 03 ✦ CHENNAI</span>
+      <span class="memo-date">Jul 2026</span>
+    </div>
+    <h2 class="memo-title">The Researchathon</h2>
+    <p class="memo-body">
+      Back in Chennai, we tried something new. Everyone picked a real-world problem, like e-waste or urban
+      parking, and researched it the way a founder would: talking to people, digging through market data and
+      looking at who is already trying to solve it. Then they pitched their ideas and defended them in front
+      of the room. Three of them went on to write full research papers.
+    </p>
+    <div class="memo-tags"><span>Researchathon</span><span>Problem statements</span><span>Papers</span><span>Chennai</span></div>
+    <div class="memo-strip">
+      <figure><a href="gallery.html#event-03"><img width="1800" height="1350" src="gallery/e3/t/01.jpg" loading="lazy" alt="Everyone at the researchathon"></a><figcaption>Everyone at the researchathon</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="1350" height="1800" src="gallery/e3/t/02.jpg" loading="lazy" alt="Picking a problem statement"></a><figcaption>Picking a problem statement</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="1350" height="1800" src="gallery/e3/t/03.jpg" loading="lazy" alt="Pitching the problem to the room"></a><figcaption>Pitching the problem to the room</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="1800" height="1350" src="gallery/e3/t/04.jpg" loading="lazy" alt="Listening closely"></a><figcaption>Listening closely</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="1350" height="1800" src="gallery/e3/t/06.jpg" loading="lazy" alt="Defending his idea"></a><figcaption>Defending his idea</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="1800" height="1350" src="gallery/e3/t/08.jpg" loading="lazy" alt="Debating outside"></a><figcaption>Debating outside</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="1350" height="1800" src="gallery/e3/t/10.jpg" loading="lazy" alt="The pavilion, mid session"></a><figcaption>The pavilion, mid session</figcaption></figure>
+      <figure><a href="gallery.html#event-03"><img width="960" height="1280" src="gallery/e3/t/11.jpg" loading="lazy" alt="Putting notes on the board"></a><figcaption>Putting notes on the board</figcaption></figure>
+    </div>
+    <div class="memo-stat">
+      <div><b>40+</b>humans</div>
+      <div><b>03</b>papers published</div>
+      <div><b>01</b>new format</div>
+      <div><b>00</b>tokens</div>
+    </div>
+    <p class="memo-links"><a href="gallery.html#event-03">see all 31 photos →</a><a href="research.html#papers">read the 3 papers →</a></p>
+  </article>
+
+  <article class="memo upcoming" data-reveal>
+    <div class="memo-head">
+      <span class="memo-log">LOG 04 ✦ ???</span>
+      <span class="memo-date">Coming Soon</span>
+    </div>
+    <h2 class="memo-title">Loading…</h2>
+    <p class="memo-body">Something's brewing. Follow us on <a href="https://instagram.com/notokenclub" target="_blank" rel="noopener" style="color:var(--accent)">Instagram</a>, <a href="https://www.linkedin.com/company/notoken-club/" target="_blank" rel="noopener" style="color:var(--accent)">LinkedIn</a>, <a href="https://www.facebook.com/share/1JEBxfJ3DX/" target="_blank" rel="noopener" style="color:var(--accent)">Facebook</a>, or <a href="Index.html#join" style="color:var(--accent)">join the club</a> to hear it first.</p>
+  </article>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="section" id="story">
+  <p class="label" data-reveal style="margin-bottom:24px">The story <span class="star">✦</span> why we started</p>
+  <p class="story" data-reveal>
+    We're a group of people in Chennai who were tired of not having anyone to properly talk
+    about AI and tech with. So we started meeting up every week to talk about what's going on
+    in AI, tech and business, and to meet people who take this stuff as seriously as we do.
+  </p>
+  <p class="story" data-reveal>
+    <span class="hl">Nobody's selling anything, and nobody is too new to join.</span> It's just good
+    conversations, usually over chai. We started in Chennai, and now we've got people in Coimbatore too.
+  </p>
+</section>
+
+<!-- ============ WHAT WE DO ============ -->
+<section class="section" id="do" style="padding-top:0">
+  <h2 class="section-title" data-reveal>What we do</h2>
+  <div class="do-list">
+    <div class="do-item" data-reveal>
+      <span class="d-num">01 ✦</span>
+      <h3>Weekly gatherings</h3>
+      <p>We meet in person every week and talk through what's happening in AI, tech and business. Out loud, not in a group chat.</p>
+    </div>
+    <div class="do-item" data-reveal>
+      <span class="d-num">02 ✦</span>
+      <h3>Paper club</h3>
+      <p>We read research papers together and push each other to write our own. Three members already have.</p>
+    </div>
+    <div class="do-item" data-reveal>
+      <span class="d-num">03 ✦</span>
+      <h3>Build nights</h3>
+      <p>Bring whatever you're stuck on, even if it only half works. Show it to the room and someone usually knows how to fix it.</p>
+    </div>
+    <div class="do-item" data-reveal>
+      <span class="d-num">04 ✦</span>
+      <h3>Events</h3>
+      <p>Meetups, workshops and our researchathon. Chennai and Coimbatore so far, hopefully your city next.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="section" id="numbers" style="padding-top:0">
+  <p class="label" data-reveal>By the numbers <span class="star">✦</span></p>
+  <div class="stats" data-reveal>
+    <div><div class="stat-num">70+</div><div class="stat-label label">members</div></div>
+    <div><div class="stat-num">03</div><div class="stat-label label">events done</div></div>
+    <div><div class="stat-num">02</div><div class="stat-label label">cities: chennai and coimbatore</div></div>
+  </div>
+</section>
+
+<!-- ============ LUCK BANNER ============ -->
+<style>
+.luck{max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,140px) clamp(20px,4vw,48px)}
+.luck a{display:block;color:var(--accent);text-decoration:none}
+.luck p{font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:0.95;font-size:clamp(40px,8.4vw,124px);color:var(--accent);overflow-wrap:break-word}
+.luck p span{display:inline-block;opacity:0;transform:translateY(0.5em);transition:opacity .6s ease,transform .8s cubic-bezier(0.16,1,0.3,1)}
+.luck.on p span{opacity:1;transform:none}
+.luck small{display:inline-block;margin-top:28px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg);border-bottom:1px solid var(--accent);padding-bottom:4px}
+.luck a:hover small{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.luck p span{opacity:1;transform:none;transition:none}}
+</style>
+<section class="luck" id="luck" aria-label="Join notokenclub">
+  <a href="index.html#join">
+    <p>Engineering our own luck, engineer yours too by joining us.</p>
+    <small>join notokenclub →</small>
+  </a>
+</section>
+<script>
+(function(){
+  var s=document.getElementById('luck'); if(!s) return;
+  var p=s.querySelector('p'), words=p.textContent.trim().split(/\s+/);
+  p.innerHTML=words.map(function(w,i){return '<span style="transition-delay:'+(i*0.06).toFixed(2)+'s">'+w+'</span>';}).join(' ');
+  if(!window.IntersectionObserver){s.classList.add('on');return;}
+  var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){s.classList.add('on');o.disconnect();}});},{threshold:0.25});
+  o.observe(s);
+})();
+</script>
+
+<!-- ============ CTA ============ -->
+<section class="section" id="cta">
+  <h2 class="section-title" data-reveal style="font-size:clamp(40px,8vw,100px)">Be at log 04</h2>
+  <div class="cta-row" data-reveal>
+    <a class="btn btn-fill" href="Index.html#join">join the club ✦</a>
+    <a class="btn btn-outline" href="mailto:notokenclub26@gmail.com">notokenclub26@gmail.com</a>
+  </div>
+</section>
+
+<footer>© 2026 notokenclub · made in chennai <span class="star">✦</span></footer>
+
+<script>
+(function () {
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Lenis ---------- */
+  if (!reduceMotion && window.Lenis) {
+    var lenis = new Lenis({
+      duration: 1.0,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.4
+    });
+    window._lenis = lenis;
+    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+  }
+
+  /* ---------- Reveals ---------- */
+  var els = document.querySelectorAll('[data-reveal]');
+  if (reduceMotion || !window.IntersectionObserver) {
+    els.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { obs.observe(el); });
+  }
+
+  /* ---------- Title scramble ---------- */
+  if (!reduceMotion && window.IntersectionObserver) {
+    var GLYPHS = 'ΞΔ#%&@$01▮✦<>/';
+    document.querySelectorAll('.section-title,.memo-title').forEach(function (el) {
+      var tn = el.firstChild;
+      if (!tn || tn.nodeType !== 3 || !tn.textContent.trim()) return;
+      var finalText = tn.textContent;
+      var o = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        o.unobserve(el);
+        var frame = 0, total = 24;
+        var timer = setInterval(function () {
+          frame++;
+          var out = '';
+          for (var i = 0; i < finalText.length; i++) {
+            var reveal = (i / finalText.length) * total * 0.8;
+            if (finalText[i] === ' ' || frame > reveal + 4) out += finalText[i];
+            else out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          }
+          tn.textContent = out;
+          if (frame >= total) { tn.textContent = finalText; clearInterval(timer); }
+        }, 30);
+      }, { threshold: 0.4 });
+      o.observe(el);
+    });
+  }
+
+  /* ---------- Nav overlay ---------- */
+  var btn = document.getElementById('menuBtn');
+  var overlay = document.getElementById('navOverlay');
+  var closeBtn = document.getElementById('navClose');
+  var pacDot = document.getElementById('navPacDot');
+  if (btn && overlay) {
+    var links = overlay.querySelectorAll('.nav-links a');
+    var openNav = function () {
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      if (window._lenis) window._lenis.stop();
+      links.forEach(function (a, i) { a.style.transitionDelay = (0.06 + i * 0.06) + 's'; });
+    };
+    var closeNav = function () {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (window._lenis) window._lenis.start();
+      links.forEach(function (a) { a.style.transitionDelay = '0s'; });
+      if (pacDot) pacDot.style.opacity = '0';
+    };
+    btn.addEventListener('click', function () {
+      overlay.classList.contains('open') ? closeNav() : openNav();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeNav);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeNav();
+    });
+    links.forEach(function (a) {
+      a.addEventListener('mouseenter', function () {
+        if (!pacDot) return;
+        pacDot.style.top = (a.offsetTop + a.offsetHeight / 2 - 11) + 'px';
+        pacDot.style.opacity = '1';
+      });
+    });
+    var navEl = overlay.querySelector('.nav-links');
+    if (navEl) navEl.addEventListener('mouseleave', function () { if (pacDot) pacDot.style.opacity = '0'; });
+  }
+})();
+</script>
+</body>
+</html>
